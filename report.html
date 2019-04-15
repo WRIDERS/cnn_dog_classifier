@@ -13758,6 +13758,12 @@ Accuracy on dog images: 100.0%
     <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
 <span class="p">])</span>
 
+<span class="n">normalizer_test_validate</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>    
+<span class="p">]</span>
+<span class="p">)</span>
+
 <span class="n">loaders_scratch</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="n">training_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="s1">&#39;/data/dog_images/train&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">normalizer</span><span class="p">)</span>
@@ -13767,13 +13773,13 @@ Accuracy on dog images: 100.0%
                                           <span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 
-<span class="n">validation_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="s1">&#39;/data/dog_images/valid&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">normalizer</span><span class="p">)</span>
+<span class="n">validation_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="s1">&#39;/data/dog_images/valid&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">normalizer_test_validate</span><span class="p">)</span>
 <span class="n">loaders_scratch</span><span class="p">[</span><span class="s2">&quot;valid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">validation_data</span><span class="p">,</span>
                                           <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
                                           <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                           <span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="s1">&#39;/data/dog_images/test&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">normalizer</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="s1">&#39;/data/dog_images/test&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">normalizer_test_validate</span><span class="p">)</span>
 <span class="n">loaders_scratch</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span>
                                           <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
                                           <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -14258,6 +14264,11 @@ Test Accuracy: 11% (94/836)
     <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>    
 <span class="p">])</span>
 
+<span class="n">normalizer_test_validate</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>        
+<span class="p">])</span>
+
 <span class="n">loaders_transfer</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="n">training_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="s1">&#39;/data/dog_images/train&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">normalizer</span><span class="p">)</span>
@@ -14267,13 +14278,13 @@ Test Accuracy: 11% (94/836)
                                           <span class="n">num_workers</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 
-<span class="n">validation_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="s1">&#39;/data/dog_images/valid&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">normalizer</span><span class="p">)</span>
+<span class="n">validation_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="s1">&#39;/data/dog_images/valid&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">normalizer_test_validate</span><span class="p">)</span>
 <span class="n">loaders_transfer</span><span class="p">[</span><span class="s2">&quot;valid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">validation_data</span><span class="p">,</span>
                                           <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
                                           <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                           <span class="n">num_workers</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="s1">&#39;/data/dog_images/test&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">normalizer</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="s1">&#39;/data/dog_images/test&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">normalizer_test_validate</span><span class="p">)</span>
 <span class="n">loaders_transfer</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span>
                                           <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
                                           <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -14484,6 +14495,11 @@ Test Accuracy: 11% (94/836)
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <p>I have changed the final layer of CNN to output 133 class outputs. Also made last 3 fully connected linear layers retrainable while keeping convolution part frozen. Since VGG16 is trained on imagenet data which is similiar to the dataset we are dealing with. Retraining just the last layer should give good output due to transfer learning.</p>
+<p>This architecture is suitable for current problem because of following reasons</p>
+<ul>
+<li>Training dataset is not very large and is similiar to ImageNet Dataset. Hence, learned parameter in convolution layers of VGG16 should do a decent job of extracting high level features.</li>
+<li>CNN layers of network will detect high level features wheras Fully connected layers will classify images into different categories.</li>
+</ul>
 
 </div>
 </div>
